@@ -5,7 +5,10 @@ import com.CathyB.stockMarketTrend.Model.User;
 import com.CathyB.stockMarketTrend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class UserRegistrationService {
 
   @Autowired
@@ -15,7 +18,7 @@ public class UserRegistrationService {
   private BCryptPasswordEncoder passwordEncoder;
 
   public String registerUser(RegistrationRequest registrationRequest) {
-    if (userRepository.findByUserName(registrationRequest.getUsername()) != null) {
+    if (userRepository.findByUsername(registrationRequest.getUsername()).isPresent()) {
       return "Username already taken";
     }
 

@@ -22,12 +22,12 @@ public class StockTracking {
 
 
   @ManyToOne
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "stock_id", referencedColumnName = "id")
   private User user;
 
 
   @ManyToOne
-  @JoinColumn(name = "stock_id", nullable = false)
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
   private Stock stock;
 
   private Boolean isFavorite;

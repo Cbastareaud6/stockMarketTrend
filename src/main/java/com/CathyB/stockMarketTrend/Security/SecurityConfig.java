@@ -36,15 +36,19 @@ public class SecurityConfig {
 
 
   @Bean
-  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-   return httpSecurity
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    return httpSecurity
         .csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.requestMatchers("/api/auth/**").permitAll()
+            .requestMatchers("/api/stocks/**").authenticated()
             .anyRequest().authenticated()
         )
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Make it stateless
+
+        .sessionManagement(session -> session.sessionCreationPolicy(
+            SessionCreationPolicy.STATELESS)) // Make it stateless
         .authenticationProvider(authenticationProvider())
-        .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, customUserDetailsService), UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(new JwtAuthenticationFilter(jwtUtil, customUserDetailsService),
+            UsernamePasswordAuthenticationFilter.class)
         .build();
 
 

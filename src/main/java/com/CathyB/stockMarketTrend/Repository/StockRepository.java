@@ -10,6 +10,7 @@ public interface StockRepository  extends JpaRepository<Stock,Long> {
 
 
   Stock findByTicker(String ticker);
+  boolean existsByTicker (String ticker);
 
 
 }

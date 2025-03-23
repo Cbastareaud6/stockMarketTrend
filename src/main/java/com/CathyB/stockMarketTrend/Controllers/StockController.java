@@ -2,6 +2,7 @@ package com.CathyB.stockMarketTrend.Controllers;
 
 
 import com.CathyB.stockMarketTrend.Model.Stock;
+import com.CathyB.stockMarketTrend.Model.StockData;
 import com.CathyB.stockMarketTrend.Model.User;
 import com.CathyB.stockMarketTrend.Repository.StockRepository;
 import com.CathyB.stockMarketTrend.Repository.UserRepository;
@@ -35,7 +36,7 @@ public class StockController {
 
 
   @GetMapping("/{ticker}")
-  public String getStockData(@PathVariable String ticker) {
+  public StockData getStockData(@PathVariable String ticker) {
     return stockService.getStockData(ticker);
   }
 

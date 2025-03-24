@@ -28,7 +28,7 @@ private AtomicInteger requestCount = new AtomicInteger(0);
             break;
           }
 
-          StockData stockData = stockService.getStockData(stock.getTicker());
+          StockData stockData = stockService.getStockData(stock.getSymbol());
           if (stockData != null){
             stock.setCurrentPrice(stockData.getC());
             stockRepository.save(stock);

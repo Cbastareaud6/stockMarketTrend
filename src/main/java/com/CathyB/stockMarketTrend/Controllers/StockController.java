@@ -57,7 +57,7 @@ public class StockController {
         .orElseThrow(() -> new RuntimeException("User not found"));
     System.out.println(user.getUsername());
 
-    Stock stock = stockRepository.findByTicker(ticker);
+    Stock stock = stockRepository.findBySymbol(ticker);
     if (stock == null) {
       return "Stock not found";
     }
@@ -71,7 +71,7 @@ public class StockController {
     User user = userRepository.findById(userId)
         .orElseThrow(() -> new RuntimeException("USer not found"));
 
-    Stock stock = stockRepository.findByTicker(ticker);
+    Stock stock = stockRepository.findBySymbol(ticker);
     if (stock == null) {
       return "Stock not found";
     }

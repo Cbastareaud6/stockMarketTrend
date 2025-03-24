@@ -1,13 +1,12 @@
 package com.CathyB.stockMarketTrend.Service;
 
-
 import com.CathyB.stockMarketTrend.Model.Stock;
 import com.CathyB.stockMarketTrend.Model.StockData;
 import com.CathyB.stockMarketTrend.Model.StockTracking;
 import com.CathyB.stockMarketTrend.Model.User;
 import com.CathyB.stockMarketTrend.Repository.StockRepository;
 import com.CathyB.stockMarketTrend.Repository.StockTrackingRepository;
-import jakarta.persistence.PostPersist;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -48,13 +47,30 @@ public  void updateAllStockData (){
 
   if (stocks.length > 0 && stocks != null){
     for (Stock stock : stocks){
-     if  (!stockRepository.existsByTicker(stock.getTicker())){
-        stockRepository.save(stock);
+     if  (!stockRepository.existsBySymbol(stock.getSymbol())){
+        saveOrUpdateStocks(stock);
       }
 
     }
   }
 }
+
+
+public void saveOrUpdateStocks (Stock stock) {
+   Optional<Stock> existingStock = Optional.ofNullable(
+       stockRepository.findBySymbol(stock.getSymbol()));
+
+   if (existingStock.isPresent()){
+     Stock toUpdate = existingStock.get();
+
+     toUpdate.setDescription(stock.getDescription());
+
+     stockRepository.save(toUpdate);
+   }
+
+
+}
+
 
   public StockData getStockData (String ticker){
     String url = UriComponentsBuilder.fromHttpUrl("https://finnhub.io/api/v1/quote")
@@ -65,6 +81,10 @@ public  void updateAllStockData (){
     return restTemplate.getForObject(url, StockData.class);
 
   }
+
+
+
+
 
   public Stock addOrUpdateStock(Stock stock){
     return stockRepository.save(stock);

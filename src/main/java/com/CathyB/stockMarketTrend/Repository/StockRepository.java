@@ -9,8 +9,13 @@ import org.springframework.stereotype.Repository;
 public interface StockRepository  extends JpaRepository<Stock,Long> {
 
 
-  Stock findByTicker(String ticker);
-  boolean existsByTicker (String ticker);
+  Stock findBySymbol(String ticker);
+
+  boolean existsBySymbol(String ticker);
+
+
+
 
 
 }
+

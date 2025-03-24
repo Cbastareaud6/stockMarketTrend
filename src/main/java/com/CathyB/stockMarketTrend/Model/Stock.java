@@ -13,15 +13,30 @@ import lombok.Data;
 @Table(name="stocks")
 public class Stock {
 
+  // "currency": "USD",
+  //        "description": "GREEN STREET CAPITAL CORP",
+  //        "displaySymbol": "JAGR",
+  //        "figi": "BBG000BC6BZ1",
+  //        "isin": null,
+  //        "mic": "OOTC",
+  //        "shareClassFIGI": "BBG001S5S095",
+  //        "symbol": "JAGR",
+  //        "symbol2": "",
+  //        "type": "Common Stock"
+  //    },
+
   @Id
   @GeneratedValue
   private Long id;
 
+  private String description;
 
-  @Column(name = "ticker", nullable = false, unique = true)
-  private String ticker;
+
+  @Column(name = "symbol", nullable = false, unique = true)
+  private String symbol;
 
   private String name;
+  
   private double currentPrice;
   // add other fields as needed;
 
